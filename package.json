@@ -1,0 +1,34 @@
+{
+  "name": "crypto-utils",
+  "version": "1.0.0",
+  "description": "Utilities to help encrypt/decrypt information using node crypt and AWS KMS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niceoneallround/crypto-utils.git"
+  },
+  "author": "rich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niceoneallround/crypto-utils/issues"
+  },
+  "homepage": "https://github.com/niceoneallround/crypto-utils#readme",
+  "engine": "node 0.12.x",
+  "devDependencies": {
+    "grunt": "0.x.x",
+    "grunt-buddyjs": "^0.1.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-jscs": "^0.8.0",
+    "grunt-mocha-test": "0.x.x",
+    "grunt-shell": "^1.1.2",
+    "mocha": "1.x.x",
+    "should": "^7.1.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.2.18",
+    "crypto": "0.0.3"
+  }
+}
