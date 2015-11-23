@@ -41,7 +41,7 @@ describe('Crypto Utils Tests', function() {
 
         decryptParams.kms = kms;
         decryptParams.sfmt = sfmt;
-        cryptoUtils.decodeCheckHMACDecrypt(decryptParams, function(err, plain) {
+        cryptoUtils.decodeHMACDecrypt(decryptParams, function(err, plain) {
           var pt;
           assert(!err, util.format('unexpected error:%j', err));
           assert(plain, 'no plain returned');
