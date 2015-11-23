@@ -26,5 +26,5 @@ A set of utilities that supports
   * createHMAC
   * compareHMACcode
 * formatUtils
-** encode
-** decode
+ * encode
+ * decode
