@@ -100,7 +100,7 @@ describe('node crypto utils tests', function() {
       code2 = hmac2.digest('base64');
       assert(nodeCryptoUtils.compareHMACcode(code1, code2), util.format('hmac codes1 and code2 are not the same?'));
 
-      // modify params and create new hmac
+      // modify params and create new hmac this should not match
       params.cipherText = new Buffer('another text');
       hmac3 = nodeCryptoUtils.createHMAC(params);
       code3 = hmac3.digest('base64');
