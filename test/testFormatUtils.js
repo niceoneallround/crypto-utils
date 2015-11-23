@@ -4,7 +4,7 @@
 // Test the creation and unpacking of storage format
 //
 var assert = require('assert'),
-    storageFormatUtils = require('../lib/storageFormatUtils'),
+    formatUtils = require('../lib/formatUtils'),
     util = require('util');
 
 describe('encoded format tests', function() {
@@ -51,10 +51,10 @@ describe('encoded format tests', function() {
 
       params = createCanonParams();
 
-      sfmt = storageFormatUtils.encode(params);
+      sfmt = formatUtils.encode(params);
       assert((sfmt.length > 0), util.format('Sfmt string is zero length?'));
 
-      unpacked = storageFormatUtils.decode(sfmt);
+      unpacked = formatUtils.decode(sfmt);
       checkCanonUnpacked(unpacked, params);
     });
 
@@ -64,10 +64,10 @@ describe('encoded format tests', function() {
       params = createCanonParams();
       params.cipherText = 'encrypted data'; // overrride so string
 
-      sfmt = storageFormatUtils.encode(params);
+      sfmt = formatUtils.encode(params);
       assert((sfmt.length > 0), util.format('Sfmt string is zero length?'));
 
-      unpacked = storageFormatUtils.decode(sfmt);
+      unpacked = formatUtils.decode(sfmt);
       checkCanonUnpacked(unpacked, params);
     });
   }); // describe 1
