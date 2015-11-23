@@ -6,10 +6,10 @@
 var assert = require('assert'),
     should = require('should'),
     crypto = require('crypto'),
-    localCryptoUtils = require('../lib/localCryptoUtils'),
+    nodeCryptoUtils = require('../lib/nodeCryptoUtils'),
     util = require('util');
 
-describe('local crypto utils tests', function() {
+describe('node crypto utils tests', function() {
   'use strict';
 
   var ALGORITHM = 'AES-256-CBC',
@@ -27,7 +27,7 @@ describe('local crypto utils tests', function() {
       params.plain = PLAIN;
       params.key = KEY;
       params.iv = IV;
-      encrypted = localCryptoUtils.encrypt(params);
+      encrypted = nodeCryptoUtils.encrypt(params);
 
       // decrypt
       params = {};
@@ -36,7 +36,7 @@ describe('local crypto utils tests', function() {
       params.key = KEY;
       params.iv = IV;
 
-      decrypted = localCryptoUtils.decrypt(params);
+      decrypted = nodeCryptoUtils.decrypt(params);
 
       assert((PLAIN === decrypted.toString('utf-8')),
           util.format('Decrypted:%s does not match:%s', decrypted.toString('utf-8'), PLAIN));
@@ -53,7 +53,7 @@ describe('local crypto utils tests', function() {
       params.key = KEY;
       params.iv = IV;
 
-      encrypted = localCryptoUtils.encrypt(params);
+      encrypted = nodeCryptoUtils.encrypt(params);
 
       // decrypt
       params = {};
@@ -62,7 +62,7 @@ describe('local crypto utils tests', function() {
       params.key = KEY;
       params.iv = IV;
 
-      decrypted = localCryptoUtils.decrypt(params);
+      decrypted = nodeCryptoUtils.decrypt(params);
 
       assert((PLAIN.toString('binary') === decrypted.toString('binary')),
           util.format('Decrypted:%s does not match:%s', decrypted.toString('utf-8'), PLAIN));
@@ -92,20 +92,20 @@ describe('local crypto utils tests', function() {
       params.cipherKey = new Buffer(cipherKey);
       params.keyContext = keyContext;
 
-      hmac1 = localCryptoUtils.createHMAC(params);
-      hmac2 = localCryptoUtils.createHMAC(params);
+      hmac1 = nodeCryptoUtils.createHMAC(params);
+      hmac2 = nodeCryptoUtils.createHMAC(params);
 
       // make sure both hmacCodes are the same hmac.digest(ENCODING)
       code1 = hmac1.digest('base64');
       code2 = hmac2.digest('base64');
-      assert(localCryptoUtils.compareHMACcode(code1, code2), util.format('hmac codes1 and code2 are not the same?'));
+      assert(nodeCryptoUtils.compareHMACcode(code1, code2), util.format('hmac codes1 and code2 are not the same?'));
 
       // modify params and create new hmac
       params.cipherText = new Buffer('another text');
-      hmac3 = localCryptoUtils.createHMAC(params);
+      hmac3 = nodeCryptoUtils.createHMAC(params);
       code3 = hmac3.digest('base64');
 
-      assert(!localCryptoUtils.compareHMACcode(code1, code3), util.format('hmac code1 and code3 are the same?'));
+      assert(!nodeCryptoUtils.compareHMACcode(code1, code3), util.format('hmac code1 and code3 are the same?'));
 
     }); // describe 2
   });
