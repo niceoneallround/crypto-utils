@@ -7,7 +7,7 @@ var assert = require('assert'),
     storageFormatUtils = require('../lib/storageFormatUtils'),
     util = require('util');
 
-describe('storage format tests', function() {
+describe('encoded format tests', function() {
   'use strict';
 
   describe('1 basic positive tests', function() {
@@ -46,15 +46,15 @@ describe('storage format tests', function() {
                     util.format('unpacked edk:%j does not match original:%j', unpacked.hmacCode.toString('utf-8'), params.hmacCode.toString('utf-8')));
     }
 
-    it('1.1 should create a storage format and then reverse and all should be the same', function() {
+    it('1.1 should create a encoded format and then reverse and all should be the same', function() {
       var params = {}, sfmt, unpacked;
 
       params = createCanonParams();
 
-      sfmt = storageFormatUtils.convert2StorageFormat(params);
+      sfmt = storageFormatUtils.encode(params);
       assert((sfmt.length > 0), util.format('Sfmt string is zero length?'));
 
-      unpacked = storageFormatUtils.reverseStorageFormat(sfmt);
+      unpacked = storageFormatUtils.decode(sfmt);
       checkCanonUnpacked(unpacked, params);
     });
 
@@ -64,10 +64,10 @@ describe('storage format tests', function() {
       params = createCanonParams();
       params.cipherText = 'encrypted data'; // overrride so string
 
-      sfmt = storageFormatUtils.convert2StorageFormat(params);
+      sfmt = storageFormatUtils.encode(params);
       assert((sfmt.length > 0), util.format('Sfmt string is zero length?'));
 
-      unpacked = storageFormatUtils.reverseStorageFormat(sfmt);
+      unpacked = storageFormatUtils.decode(sfmt);
       checkCanonUnpacked(unpacked, params);
     });
   }); // describe 1

@@ -21,9 +21,9 @@ describe('Crypto Utils Tests', function() {
     done();
   });
 
-  describe('1 Encrypt/MakeStoreFormat/Reverse/Decrypt tests', function() {
+  describe('1 encrypt/hmac/encode - decode/checkHmac/decrypt tests', function() {
 
-    it('1.1 Encrypt text and convert to storage format, then reverse and decrypt', function(done) {
+    it('1.1 Test with TEXT', function(done) {
       var params = {};
 
       params.kms = kms;
@@ -34,14 +34,14 @@ describe('Crypto Utils Tests', function() {
       };
       params.plain = 'bob';
 
-      cryptoUtils.encryptHMACConvert2StorageFormat(params, function(err, sfmt) {
+      cryptoUtils.encryptHMACEncode(params, function(err, sfmt) {
         var decryptParams = {};
         assert(!err, util.format('unexpected error:%j', err));
         assert(sfmt, 'no storage format returned');
 
         decryptParams.kms = kms;
         decryptParams.sfmt = sfmt;
-        cryptoUtils.reverseStorageCheckHMACDecrypt(decryptParams, function(err, plain) {
+        cryptoUtils.decodeCheckHMACDecrypt(decryptParams, function(err, plain) {
           var pt;
           assert(!err, util.format('unexpected error:%j', err));
           assert(plain, 'no plain returned');
