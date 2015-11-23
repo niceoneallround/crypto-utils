@@ -4,7 +4,6 @@
 // Test the creation and unpacking of storage format
 //
 var assert = require('assert'),
-    should = require('should'),
     storageFormatUtils = require('../lib/storageFormatUtils'),
     util = require('util');
 
@@ -18,8 +17,8 @@ describe('storage format tests', function() {
 
       params.cipherText = new Buffer('encrypted data');
       params.iv = new Buffer('random number 11111');
-      params.edk = new Buffer('encrypted key');
-      params.edkContext = {
+      params.cipherKey = new Buffer('encrypted key');
+      params.keyContext = {
         type: 'service-name:resource-name',
         id: 'none'
       };
@@ -34,14 +33,14 @@ describe('storage format tests', function() {
       assert((unpacked.iv.toString('utf-8') === params.iv.toString('utf-8')),
                 util.format('unpacked iv:%j does not match original:%j', unpacked.iv.toString('utf-8'), params.iv.toString('utf-8')));
 
-      assert((unpacked.edk.toString('utf-8') === params.edk.toString('utf-8')),
-                    util.format('unpacked edk:%j does not match original:%j', unpacked.edk.toString('utf-8'), params.edk.toString('utf-8')));
+      assert((unpacked.cipherKey.toString('utf-8') === params.cipherKey.toString('utf-8')),
+                    util.format('unpacked cipherKey:%j does not match original:%j', unpacked.cipherKey.toString('utf-8'), params.cipherKey.toString('utf-8')));
 
-      assert(unpacked.edkContext.type === params.edkContext.type,
-                    util.format('unpacked id context:%j does not match orginal:%j', unpacked.edkContext, params.edkContext));
+      assert(unpacked.keyContext.type === params.keyContext.type,
+                    util.format('unpacked type keyContext:%j does not match orginal:%j', unpacked.keyContext, params.keyContext));
 
-      assert(unpacked.edkContext.id === params.edkContext.id,
-                    util.format('unpacked type context:%j does not match orginal:%j', unpacked.edkContext, params.edkContext));
+      assert(unpacked.keyContext.id === params.keyContext.id,
+                    util.format('unpacked id context:%j does not match orginal:%j', unpacked.keyContext, params.keyContext));
 
       assert((unpacked.hmacCode.toString('utf-8') === params.hmacCode.toString('utf-8')),
                     util.format('unpacked edk:%j does not match original:%j', unpacked.hmacCode.toString('utf-8'), params.hmacCode.toString('utf-8')));

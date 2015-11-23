@@ -10,9 +10,6 @@
 // Test local crypt routines
 //
 var assert = require('assert'),
-    should = require('should'),
-
-    //crypto = require('crypto'),
     awsKMSUtils = require('../lib/awsKMSUtils'),
     util = require('util');
 

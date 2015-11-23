@@ -27,9 +27,7 @@ describe('local crypto utils tests', function() {
       params.plain = PLAIN;
       params.key = KEY;
       params.iv = IV;
-
       encrypted = localCryptoUtils.encrypt(params);
-      //console.log('Encrypted: %j', encrypted.toString('base64'));
 
       // decrypt
       params = {};
@@ -79,8 +77,8 @@ describe('local crypto utils tests', function() {
           HMAC_KEY = crypto.randomBytes(32),
           cipherText = 'bogus cipher text',
           iv = crypto.randomBytes(16),
-          edkContext = {type: '23', id: 'none'},
-          edk = crypto.randomBytes(32),
+          keyContext = {type: '23', id: 'none'},
+          cipherKey = crypto.randomBytes(32),
           hmac1, hmac2, hmac3, params,
           code1, code2, code3;
 
@@ -91,8 +89,8 @@ describe('local crypto utils tests', function() {
       //  check params containing data to run hmac over
       params.cipherText = new Buffer(cipherText);
       params.iv = new Buffer(iv);
-      params.edk = new Buffer(edk);
-      params.edkContext = edkContext;
+      params.cipherKey = new Buffer(cipherKey);
+      params.keyContext = keyContext;
 
       hmac1 = localCryptoUtils.createHMAC(params);
       hmac2 = localCryptoUtils.createHMAC(params);
