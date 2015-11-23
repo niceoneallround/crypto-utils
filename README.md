@@ -13,18 +13,18 @@ A set of utilities that supports
 * The keys are protected by the AWS KMS polices
 
 ## The package provides the following utilities
-* 'cryptoUtils' provides
+* cryptoUtils.js provides
   * encryptHMACEncode
   * decodeHMACDecrypt
-* awsKMSUtils
+* awsKMSUtils.js
   * create - create a KMS connection
   * generateDataKey
   * decryptDataKey
-* localCryptoUtils
+* nodeCryptoUtils.js
   * encrypt
   * decrypt
   * createHMAC
   * compareHMACcode
-* formatUtils
+* formatUtils.js
  * encode
  * decode
