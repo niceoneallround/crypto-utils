@@ -26,16 +26,11 @@ describe('Crypto Utils Tests', function() {
 
   describe('1 encrypt/hmac/encode - decode/checkHmac/decrypt tests', function() {
 
-    var kmsKeyParams = {
-      KeyId: 'arn:aws:kms:us-east-1:835222312890:alias/test_out_kms',
-      KeySpec: 'AES_256',
-      EncryptionContext: {type: 'servicename:resourcename', id: 'none'}
-    };
-
     it('1.1 Test with TEXT', function(done) {
       var params = {};
       params.kms = kms;
-      params.kmsKeyParams = kmsKeyParams;
+      params.KeyId = 'arn:aws:kms:us-east-1:835222312890:alias/test_out_kms';
+      params.EncryptionContext =  {type: 'servicename:resourcename', id: 'none'};
       params.plain = 'bob';
 
       cryptoUtils.encryptHMACEncode(params, function(err, sfmt) {
@@ -59,7 +54,8 @@ describe('Crypto Utils Tests', function() {
     it('1.2 Test with Binary', function(done) {
       var params = {}, dataFile, dataBuffer, startJson;
       params.kms = kms;
-      params.kmsKeyParams = kmsKeyParams;
+      params.KeyId = 'arn:aws:kms:us-east-1:835222312890:alias/test_out_kms';
+      params.EncryptionContext =  {type: 'servicename:resourcename', id: 'none'};
 
       dataFile = path.join(__dirname, './testData.json');
       dataBuffer = fs.readFileSync(dataFile); // returns raw buffer of file in binary encoding of file

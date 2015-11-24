@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.2.18",
+    "commander": "^2.9.0",
     "crypto": "0.0.3",
     "should": "^7.1.1",
     "verror": "^1.6.0"
