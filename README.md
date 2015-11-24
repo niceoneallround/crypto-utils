@@ -20,9 +20,15 @@ The following implementation approach is taken:
 * The keys are protected by the AWS KMS polices, along with a usage audit trail provided by AWS cloud trail. The key context captures what resource is being accessed, and what service is accessint it.
 
 ## The package provides the following utilities
-* cryptoUtils.js provides
-  * encryptHMACEncode
-  * decodeHMACDecrypt
+
+A command line tool to produce the final encoded format from a set of inputs
+* cl-encode.js 
+
+The cryptoUtils.js that provide functions to
+ * encryptHMACEncode - returns the encoded format from a set of params
+ * decodeHMACDecrypt - returns the plain text from an encoded format and a set of params
+
+Component Utils - building blocks that can stand on thier own
 * awsKMSUtils.js
   * create - create a KMS connection
   * generateDataKey
@@ -35,3 +41,7 @@ The following implementation approach is taken:
 * formatUtils.js
  * encode
  * decode
+
+##Testing
+
+All utils have mocha tests that shows examples of usage
