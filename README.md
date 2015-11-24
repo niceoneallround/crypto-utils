@@ -1,13 +1,15 @@
 # Overview
 
-Had a requirement to deliver sensitive configuration information to HTTP Restful Services running as Docker Containers on a CoreOS cluster hosted in an AWS VPC.
+Had a requirement to deliver sensitive configuration information to HTTP Restful Services running inside Docker Containers on a CoreOS cluster hosted in an AWS VPC.
 
-The high level approach is to encrypt the configuration data, deliver the encrypted version to the Service at startup, and at runtime the Service would decrypt it. Hence the plain text only exists inside the Service memory.
+The high level approach is to encrypt the configuration data, deliver the encrypted data to the Service at startup via the command line, and the Service would then decrypt such that he plain text only exists inside the Service's memory.
 
 The following implementation approach is taken:
-* The data is encrypted using AES-256-CB, the keys are generated and protected using AWS Key Management Service (KMS), and the AES-256-CB implementation is provided by the NodeJS crypto package.
-* To protect from tampering a SHA256 HMAC code is generated across the encrypted data, the initilization vector, the encrypted key, and the key context.
-* The encoded format contains enough information to allow a party who can access the key in KMS to decrypt to the plain text. It consists of the encrypted_data.iv.encrypted_key.key_context.hmac_code - all parts as base64 encoded.
+* The data is encrypted using a AES-256-CB implementation provided by the NodeJS crypto package, and encryption keys generated and protected using AWS Key Management Service (KMS).
+* The encoded format that can be stored or sent over the wire has the following properties
+ * contains enough information such that a party that can access the key in KMS can decrypt to the plain text. This is the encrypted data, the initialization vector, the encrypted key, and the key context.
+ * protects against tampering by generating a SHA256 HMAC code across the encrypted data, iv, encrypted key, and the key context.
+ * is of the following format 'encrypted_data.iv.encrypted_key.key_context.hmac_code'. All parts as base64 encoded
 
 ## The design goals for key management are
 * The keys are stored in AWS KMS
