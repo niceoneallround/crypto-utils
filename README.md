@@ -24,12 +24,24 @@ The following implementation approach is taken:
 A command line tool to produce the final encoded format from a set of inputs
 * cl-encode.js 
 
+An example of using the command line to encode some information and display to stdout
+
+./lib/cl-encode.js 
+    -i 'full path to file containing information to encode' 
+    -r 'AWS region' 
+    -k 'AWS KMS master key' 
+    -c 'AWS KMS key encryption context' 
+
+Add example AWS KMS key encryption might be
+
+{"type": "servicename:resourcename", "id": "none"}'
+
 The cryptoUtils.js that provide functions to
  * encryptHMACEncode - returns the encoded format from a set of params
  * decodeHMACDecrypt - returns the plain text from an encoded format and a set of params
 
 Component Utils - building blocks that can stand on thier own
-* awsKMSUtils.js
+* awsKMSUtils.js - credentials are picked up from ~/.aws
   * create - create a KMS connection
   * generateDataKey
   * decryptDataKey
