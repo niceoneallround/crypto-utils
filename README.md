@@ -28,7 +28,7 @@ The command produces generates an encoded format from a set of inputs and displa
 
 An example of using the command line to encode some information and display to stdout
 
-./lib/cl-encode.js 
+/path/node_modules/crypto-utils/lib/cl-encode.js 
     -i 'full path to file containing information to encode' 
     -r 'AWS region' 
     -k 'AWS KMS master key' 
