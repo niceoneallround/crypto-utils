@@ -21,7 +21,9 @@ The following implementation approach is taken:
 
 ## The package provides the following utilities
 
-A command line tool to produce the final encoded format from a set of inputs
+###A command line tool
+
+The command produces generates an encoded format from a set of inputs and displays it to stdout
 * cl-encode.js 
 
 An example of using the command line to encode some information and display to stdout
@@ -36,21 +38,23 @@ Add example AWS KMS key encryption might be
 
 {"type": "servicename:resourcename", "id": "none"}'
 
-The cryptoUtils.js that provide functions to
+###A set of NodeJS Utilities
+
+**cryptoUtils.js** that provide functions to
  * encryptHMACEncode - returns the encoded format from a set of params
  * decodeHMACDecrypt - returns the plain text from an encoded format and a set of params
 
 Component Utils - building blocks that can stand on thier own
-* awsKMSUtils.js - credentials are picked up from ~/.aws
+* **awsKMSUtils.js** - credentials are picked up from ~/.aws
   * create - create a KMS connection
   * generateDataKey
   * decryptDataKey
-* nodeCryptoUtils.js
+* **nodeCryptoUtils.js**
   * encrypt
   * decrypt
   * createHMAC
   * compareHMACcode
-* formatUtils.js
+* **formatUtils.js**
  * encode
  * decode
 
