@@ -33,7 +33,7 @@ module.exports = function(grunt) {
     },
 
     shell: {
-      update1: {
+      npmupdate: {
         command: ['echo running npm update', 'npm update'].join('&&')
       }
     },
@@ -62,13 +62,18 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-jscs');
 
-  grunt.registerTask('update1', ['shell:update1']);
+  grunt.registerTask('npmupdate', ['shell:npmupdate']);
   grunt.registerTask('pp', ['jshint', 'jscs', 'buddyjs']);
   grunt.registerTask('test', ['pp', 'mochaTest:unitTest']);
 
   grunt.registerTask('buildTestCode', ['test']);
-  grunt.registerTask('release', ['update1', 'buildTestCode']);
 
-  grunt.registerTask('default', ['update1', 'buildTestCode']);
+  // target to release
+  grunt.registerTask('release', ['npmupdate', 'buildTestCode']);
+
+  // codeship target
+  grunt.registerTask('codeship', ['npmupdate', 'buildTestCode']);
+
+  grunt.registerTask('default', ['npmupdate', 'buildTestCode']);
 
 };
