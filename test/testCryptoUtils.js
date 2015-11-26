@@ -5,7 +5,6 @@
 // expects credentials in ~/.aws
 //
 var assert = require('assert'),
-    awsKMSUtils = require('../lib/awsKMSUtils'),
     cryptoUtils = require('../lib/cryptoUtils'),
     fs = require('fs'),         // required to read certs and keys
     should = require('should'),
@@ -18,9 +17,9 @@ describe('Crypto Utils Tests', function() {
   var kms;
 
   before(function(done) {
-    var opts = {};
-    opts.kmsOptions = { region: 'us-east-1'};
-    kms =  awsKMSUtils.create(opts);
+    var params = {};
+    params.region = 'us-east-1';
+    kms = cryptoUtils.createKMSConnection(params);
     done();
   });
 
