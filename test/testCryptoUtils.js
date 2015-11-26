@@ -17,9 +17,7 @@ describe('Crypto Utils Tests', function() {
   var kms;
 
   before(function(done) {
-    var params = {};
-    params.region = 'us-east-1';
-    kms = cryptoUtils.createKMSConnection(params);
+    kms = cryptoUtils.createKMSConnection({region:'us-east-1'});
     done();
   });
 
