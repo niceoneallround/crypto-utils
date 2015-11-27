@@ -44,6 +44,14 @@ module.exports = function(grunt) {
           reporter: 'spec'
         },
         src: ['test/*.js']
+      },
+
+      // limit tests as not AWS credentials in codeship
+      codeshipTest: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['test/testFormatUtils.js', 'test/testNodeCryptoUtils.js']
       }
     },
 
@@ -72,7 +80,7 @@ module.exports = function(grunt) {
   grunt.registerTask('release', ['npmupdate', 'buildTestCode']);
 
   // codeship target
-  grunt.registerTask('codeship', ['npmupdate', 'buildTestCode']);
+  grunt.registerTask('codeship', ['npmupdate', 'pp', 'mochaTest:codeshipTest']);
 
   grunt.registerTask('default', ['npmupdate', 'buildTestCode']);
 
