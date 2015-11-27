@@ -14,7 +14,9 @@ var assert = require('assert'),
 describe('Crypto Utils Tests', function() {
   'use strict';
 
-  var kms;
+  var kms,
+      KEY_ID = 'arn:aws:kms:us-east-1:835222312890:alias/test_out_kms',
+      E_CONTEXT =   {type: 'servicename:resourcename', id: 'none'};
 
   before(function(done) {
     kms = cryptoUtils.createKMSConnection({region:'us-east-1'});
@@ -26,8 +28,8 @@ describe('Crypto Utils Tests', function() {
     it('1.1 Test with TEXT', function(done) {
       var params = {};
       params.kms = kms;
-      params.KeyId = 'arn:aws:kms:us-east-1:835222312890:alias/test_out_kms';
-      params.EncryptionContext =  {type: 'servicename:resourcename', id: 'none'};
+      params.KeyId = KEY_ID;
+      params.EncryptionContext =  E_CONTEXT;
       params.plain = 'bob';
 
       cryptoUtils.encryptHMACEncode(params, function(err, sfmt) {
@@ -49,16 +51,14 @@ describe('Crypto Utils Tests', function() {
     }); // it 1.1
 
     it('1.2 Test with Binary', function(done) {
-      var params = {}, dataFile, dataBuffer, startJson;
+      var params = {}, dataFile, dataBuffer;
       params.kms = kms;
-      params.KeyId = 'arn:aws:kms:us-east-1:835222312890:alias/test_out_kms';
-      params.EncryptionContext =  {type: 'servicename:resourcename', id: 'none'};
+      params.KeyId = KEY_ID;
+      params.EncryptionContext =  E_CONTEXT;
 
       dataFile = path.join(__dirname, './testData.json');
       dataBuffer = fs.readFileSync(dataFile); // returns raw buffer of file in binary encoding of file
       params.plain = dataBuffer;
-      startJson = JSON.parse(dataBuffer);
-
       cryptoUtils.encryptHMACEncode(params, function(err, sfmt) {
         var decryptParams = {};
         assert(!err, util.format('unexpected error:%j', err));
@@ -67,15 +67,39 @@ describe('Crypto Utils Tests', function() {
         decryptParams.kms = kms;
         decryptParams.sfmt = sfmt;
         cryptoUtils.decodeHMACDecrypt(decryptParams, function(err, plain) {
-          var endJson;
+          var endJson, startJson;
           assert(!err, util.format('unexpected error:%j', err));
           assert(plain, 'no plain returned');
+          startJson = JSON.parse(dataBuffer);
           endJson = JSON.parse(plain);
           endJson.should.have.property('prop1', startJson.prop1);
           done();
         });
       });
-    }); // it 1.1
+    }); // it 1.2
+
+    it('1.3 Test when encoded format is a buffer', function(done) {
+      var params = {};
+      params.kms = kms;
+      params.KeyId = KEY_ID;
+      params.EncryptionContext =  E_CONTEXT;
+      params.plain = 'bobby';
+
+      cryptoUtils.encryptHMACEncode(params, function(err, sfmt) {
+        var decryptParams = {};
+        assert(!err, util.format('unexpected error:%j', err));
+        assert(sfmt, 'no storage format returned');
+
+        decryptParams.kms = kms;
+        decryptParams.sfmt = new Buffer(sfmt);
+        cryptoUtils.decodeHMACDecrypt(decryptParams, function(err, plain) {
+          assert(!err, util.format('unexpected error:%j', err));
+          assert(plain, 'no plain returned');
+          assert((plain === 'bobby', util.format('Unecrypted data is not bobby:%j', plain)));
+          done();
+        });
+      });
+    }); // it 1.3
   }); // describe 1
 
 });

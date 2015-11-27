@@ -48,7 +48,6 @@ describe('encoded format tests', function() {
 
     it('1.1 should create a encoded format and then reverse and all should be the same', function() {
       var params = {}, sfmt, unpacked;
-
       params = createCanonParams();
 
       sfmt = formatUtils.encode(params);
@@ -60,7 +59,6 @@ describe('encoded format tests', function() {
 
     it('1.2 should wrap strings with Buffer', function() {
       var params = {}, sfmt, unpacked;
-
       params = createCanonParams();
       params.cipherText = 'encrypted data'; // overrride so string
 
@@ -69,7 +67,19 @@ describe('encoded format tests', function() {
 
       unpacked = formatUtils.decode(sfmt);
       checkCanonUnpacked(unpacked, params);
-    });
+    }); // 1.2
+
+    it('1.3 should handle encoded format passed as a Buffer', function() {
+        var params = {}, sfmt, unpacked;
+        params = createCanonParams();
+        params.cipherText = 'encrypted data'; // overrride so string
+
+        sfmt = formatUtils.encode(params);
+        assert((sfmt.length > 0), util.format('Sfmt string is zero length?'));
+
+        unpacked = formatUtils.decode(new Buffer(sfmt));
+        checkCanonUnpacked(unpacked, params);
+      }); // 1.3
   }); // describe 1
 
 });
