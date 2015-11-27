@@ -33,10 +33,14 @@ An example of using the command line to encode some information and display to s
     -r 'AWS region' 
     -k 'AWS KMS master key' 
     -c 'AWS KMS key encryption context' 
-
+    
 Add example AWS KMS key encryption might be
 
 {"type": "servicename:resourcename", "id": "none"}'
+
+NOTE: if storing in a file make sure any trailing line feeds are removed otherwise the HMAC check will fail. I used the following to remove, i am sure there are better ways but time dictates.
+
+ echo -n $(cat tmpTestData.encoded) > testData.encoded
 
 ###A set of NodeJS Utilities
 
