@@ -70,7 +70,7 @@ describe('node crypto utils tests', function() {
     });
   }); // describe 1
 
-  describe('2 basic HMAC positive tests', function() {
+  describe('2 basic HMAC tests', function() {
 
     it('1.1 should create a hmac from cipherText et al', function() {
       var HMAC_ALGORITHM = 'SHA256',

@@ -56,7 +56,7 @@ describe('Crypto Utils Tests', function() {
       params.KeyId = KEY_ID;
       params.EncryptionContext =  E_CONTEXT;
 
-      dataFile = path.join(__dirname, './testData.json');
+      dataFile = path.join(__dirname, './testData.plain');
       dataBuffer = fs.readFileSync(dataFile); // returns raw buffer of file in binary encoding of file
       params.plain = dataBuffer;
       cryptoUtils.encryptHMACEncode(params, function(err, sfmt) {
@@ -100,6 +100,21 @@ describe('Crypto Utils Tests', function() {
         });
       });
     }); // it 1.3
+
+    it('1.4 Read encoded file and make sure matches plain text file', function(done) {
+      var encodedFile, encodedBuffer, decryptParams = {};
+      encodedFile = path.join(__dirname, './a.encoded');
+      encodedBuffer = fs.readFileSync(encodedFile);
+
+      decryptParams.kms = kms;
+      decryptParams.sfmt = encodedBuffer;
+
+      cryptoUtils.decodeHMACDecrypt(decryptParams, function(err, plain) {
+        assert(!err, util.format('unexpected error:%j', err));
+        assert(plain, 'no plain returned');
+        done();
+      });
+    }); // it 1.4
   }); // describe 1
 
 });
