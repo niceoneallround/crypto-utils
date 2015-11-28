@@ -103,7 +103,7 @@ describe('Crypto Utils Tests', function() {
 
     it('1.4 Read encoded file and make sure matches plain text file', function(done) {
       var encodedFile, encodedBuffer, decryptParams = {};
-      encodedFile = path.join(__dirname, './a.encoded');
+      encodedFile = path.join(__dirname, './testData.encoded');
       encodedBuffer = fs.readFileSync(encodedFile);
 
       decryptParams.kms = kms;

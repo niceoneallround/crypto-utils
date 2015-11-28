@@ -1,6 +1,6 @@
 {
   "name": "crypto-utils",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Utilities to help encrypt/decrypt information using node crypt and AWS KMS",
   "main": "index.js",
   "scripts": {
