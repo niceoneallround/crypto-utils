@@ -18,20 +18,20 @@
   "homepage": "https://github.com/niceoneallround/crypto-utils#readme",
   "engine": "node 0.12.x",
   "devDependencies": {
-    "grunt": "0.x.x",
+    "grunt": "^0.4.5",
     "grunt-buddyjs": "^0.1.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-jscs": "^0.8.0",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-jscs": "^2.6.0",
     "grunt-mocha-test": "0.x.x",
     "grunt-shell": "^1.1.2",
-    "mocha": "1.x.x",
+    "mocha": "^2.3.4",
     "should": "^7.1.0"
   },
   "dependencies": {
     "aws-sdk": "^2.2.18",
     "commander": "^2.9.0",
-    "crypto": "0.0.3",
-    "should": "^7.1.1",
+    "crypto": "^0.0.3",
+    "should": "^8.1.1",
     "verror": "^1.6.0"
   }
 }
