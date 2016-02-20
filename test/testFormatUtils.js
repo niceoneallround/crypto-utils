@@ -7,10 +7,10 @@ var assert = require('assert'),
     formatUtils = require('../lib/formatUtils'),
     util = require('util');
 
-describe('encoded format tests', function() {
+describe('encoded format tests', function () {
   'use strict';
 
-  describe('1 basic positive tests', function() {
+  describe('1 basic positive tests', function () {
 
     function createCanonParams() {
       var params = {};
@@ -46,7 +46,7 @@ describe('encoded format tests', function() {
                     util.format('unpacked edk:%j does not match original:%j', unpacked.hmacCode.toString('utf-8'), params.hmacCode.toString('utf-8')));
     }
 
-    it('1.1 should create a encoded format and then reverse and all should be the same', function() {
+    it('1.1 should create a encoded format and then reverse and all should be the same', function () {
       var params = {}, sfmt, unpacked;
       params = createCanonParams();
 
@@ -57,7 +57,7 @@ describe('encoded format tests', function() {
       checkCanonUnpacked(unpacked, params);
     });
 
-    it('1.2 should wrap strings with Buffer', function() {
+    it('1.2 should wrap strings with Buffer', function () {
       var params = {}, sfmt, unpacked;
       params = createCanonParams();
       params.cipherText = 'encrypted data'; // overrride so string
@@ -69,7 +69,7 @@ describe('encoded format tests', function() {
       checkCanonUnpacked(unpacked, params);
     }); // 1.2
 
-    it('1.3 should handle encoded format passed as a Buffer', function() {
+    it('1.3 should handle encoded format passed as a Buffer', function () {
         var params = {}, sfmt, unpacked;
         params = createCanonParams();
         params.cipherText = 'encrypted data'; // overrride so string

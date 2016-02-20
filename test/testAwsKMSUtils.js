@@ -13,22 +13,22 @@ var assert = require('assert'),
     awsKMSUtils = require('../lib/awsKMSUtils'),
     util = require('util');
 
-describe('aws KMS utils tests', function() {
+describe('aws KMS utils tests', function () {
   'use strict';
 
   var kms;
 
-  before(function(done) {
+  before(function (done) {
     var opts = {};
-    opts.kmsOptions = { region: 'us-east-1'};
+    opts.kmsOptions = { region: 'us-east-1' };
     kms =  awsKMSUtils.create(opts);
     done();
   });
 
-  describe('1 list keys tests', function() {
+  describe('1 list keys tests', function () {
 
-    it('1.1 should list keys', function(done) {
-      kms.listKeys(function(err, data) {
+    it('1.1 should list keys', function (done) {
+      kms.listKeys(function (err, data) {
         assert(!err, util.format('unexpected error on listKeys:%j', err));
         assert(data, 'no data passed back');
         console.log(data);
@@ -37,16 +37,16 @@ describe('aws KMS utils tests', function() {
     }); // it 1.1
   }); // describe 1
 
-  describe('2 generate data key tests', function() {
+  describe('2 generate data key tests', function () {
 
-    it('2.1 generate a key and decrypt it', function(done) {
+    it('2.1 generate a key and decrypt it', function (done) {
       var genDataKeyOptions = {
         KeyId: 'arn:aws:kms:us-east-1:835222312890:alias/test_out_kms',
         KeySpec: 'AES_256',
-        EncryptionContext: {type: 'servicename:resourcename', id: 'none'}
+        EncryptionContext: { type: 'servicename:resourcename', id: 'none' }
       };
 
-      kms.generateDataKey(genDataKeyOptions, function(err, data) {
+      kms.generateDataKey(genDataKeyOptions, function (err, data) {
         var decryptKeyParams;
         assert(!err, util.format('unexpected error on genDataKey:%j', err));
         assert(data, 'no data passed back');
@@ -58,7 +58,7 @@ describe('aws KMS utils tests', function() {
         decryptKeyParams = {};
         decryptKeyParams.CiphertextBlob = data.CiphertextBlob;
         decryptKeyParams.EncryptionContext = genDataKeyOptions.EncryptionContext;
-        kms.decryptDataKey(decryptKeyParams, function(err, data2) {
+        kms.decryptDataKey(decryptKeyParams, function (err, data2) {
           assert(!err, util.format('unexpected error on genDataKey:%j', err));
           assert(data2, 'no data2 passed back');
           assert((data2.Plaintext.toString('base64') === data.Plaintext.toString('base64')),

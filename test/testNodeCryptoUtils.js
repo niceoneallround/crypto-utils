@@ -9,16 +9,16 @@ var assert = require('assert'),
     nodeCryptoUtils = require('../lib/nodeCryptoUtils'),
     util = require('util');
 
-describe('node crypto utils tests', function() {
+describe('node crypto utils tests', function () {
   'use strict';
 
   var ALGORITHM = 'AES-256-CBC',
       IV = crypto.randomBytes(16),
       KEY = crypto.randomBytes(32); // need 256 bit key for AES-256
 
-  describe('1 basic encrypt/decrypt positive tests', function() {
+  describe('1 basic encrypt/decrypt positive tests', function () {
 
-    it('1.1 should encrypt and decrypt text', function() {
+    it('1.1 should encrypt and decrypt text', function () {
       var PLAIN = 'bob in plain',
           params, encrypted, decrypted;
 
@@ -43,7 +43,7 @@ describe('node crypto utils tests', function() {
 
     });
 
-    it('1.2 should encrypt and decrypt binary', function() {
+    it('1.2 should encrypt and decrypt binary', function () {
       var PLAIN = new Buffer([1, 2, 3], 'binary'),
           params, encrypted, decrypted;
 
@@ -70,14 +70,14 @@ describe('node crypto utils tests', function() {
     });
   }); // describe 1
 
-  describe('2 basic HMAC tests', function() {
+  describe('2 basic HMAC tests', function () {
 
-    it('1.1 should create a hmac from cipherText et al', function() {
+    it('1.1 should create a hmac from cipherText et al', function () {
       var HMAC_ALGORITHM = 'SHA256',
           HMAC_KEY = crypto.randomBytes(32),
           cipherText = 'bogus cipher text',
           iv = crypto.randomBytes(16),
-          keyContext = {type: '23', id: 'none'},
+          keyContext = { type: '23', id: 'none' },
           cipherKey = crypto.randomBytes(32),
           hmac1, hmac2, hmac3, params,
           code1, code2, code3;
