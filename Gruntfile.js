@@ -82,7 +82,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-jscs');
 
   grunt.registerTask('npmupdate', ['shell:npmupdate']);
-  grunt.registerTask('pp', ['jshint', 'jscs', 'buddyjs']);
+  grunt.registerTask('pp', ['jshint', 'jscs:src', 'buddyjs']);
   grunt.registerTask('test', ['pp', 'mochaTest:unitTest']);
 
   grunt.registerTask('buildTestCode', ['test']);
@@ -91,8 +91,8 @@ module.exports = function (grunt) {
   grunt.registerTask('release', ['npmupdate', 'buildTestCode']);
 
   // codeship target
-  grunt.registerTask('codeship', ['npmupdate', 'pp', 'mochaTest:codeshipTest']);
+  grunt.registerTask('codeship', ['pp', 'mochaTest:codeshipTest']);
 
-  grunt.registerTask('default', ['npmupdate', 'buildTestCode']);
+  grunt.registerTask('default', ['buildTestCode']);
 
 };
