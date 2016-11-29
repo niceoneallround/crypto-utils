@@ -1,10 +1,11 @@
 {
   "name": "crypto-utils",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Utilities to help encrypt/decrypt information using node crypt and AWS KMS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt test",
+    "build": "grunt test"
   },
   "repository": {
     "type": "git",
