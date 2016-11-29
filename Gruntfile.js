@@ -61,10 +61,11 @@ module.exports = function (grunt) {
         preset: 'airbnb',
         disallowMultipleVarDecl: false,
         requireTrailingComma: false,
+        maximumLineLength: 255
       },
       fix: {
         src: ['lib/*.js', 'Gruntfile.js', 'test/*.js'],
-        options:{
+        options: {
           preset: 'airbnb',
           disallowMultipleVarDecl: false,
           requireTrailingComma: false,
