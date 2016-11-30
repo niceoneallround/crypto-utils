@@ -1,11 +1,11 @@
 {
   "name": "crypto-utils",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Utilities to help encrypt/decrypt information using node crypt and AWS KMS",
   "main": "index.js",
   "scripts": {
-    "test": "grunt test",
-    "build": "grunt test"
+    "test": "gulp test",
+    "build": "gulp test"
   },
   "repository": {
     "type": "git",
@@ -21,20 +21,25 @@
     "node": ">=5.6.x"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-buddyjs": "^0.1.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-jscs": "^2.6.0",
-    "grunt-mocha-test": "0.x.x",
-    "grunt-shell": "^1.1.2",
-    "mocha": "^2.3.4",
-    "should": "^7.1.0"
+    "grunt": "^1.0.1",
+    "gulp": "^3.9.1",
+    "gulp-buddy.js": "^1.0.0",
+    "gulp-istanbul": "^1.0.0",
+    "gulp-jscs": "^4.0.0",
+    "gulp-jshint": "^2.0.1",
+    "gulp-mocha": "^3.0.1",
+    "gulp-nsp": "^2.4.2",
+    "js-yaml": "^3.6.1",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.2.0",
+    "mocha": "^3.1.2",
+    "should": "^11.1.1",
+    "yargs": "^6.4.0"
   },
   "dependencies": {
     "aws-sdk": "^2.2.18",
     "commander": "^2.9.0",
     "crypto": "^0.0.3",
-    "should": "^8.1.1",
     "verror": "^1.6.0"
   }
 }

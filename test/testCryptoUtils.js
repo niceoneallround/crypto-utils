@@ -19,7 +19,7 @@ describe('Crypto Utils Tests', function () {
       E_CONTEXT =   { type: 'servicename:resourcename', id: 'none' };
 
   before(function (done) {
-    kms = cryptoUtils.createKMSConnection({ region:'us-east-1' });
+    kms = cryptoUtils.createKMSConnection({ region: 'us-east-1' });
     done();
   });
 
