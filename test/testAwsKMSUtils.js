@@ -9,53 +9,61 @@
 //
 // Test local crypt routines
 //
-var assert = require('assert'),
-    awsKMSUtils = require('../lib/awsKMSUtils'),
-    util = require('util');
+const assert = require('assert');
+const awsKMSUtils = require('../lib/awsKMSUtils');
+const util = require('util');
 
-describe('aws KMS utils tests', function () {
+describe('UTILS-AWS utils tests', function () {
   'use strict';
 
-  var kms;
+  let kms;
 
   before(function (done) {
-    var opts = {};
+    //
+    // Create a KMS connection so can test
+    //
+    let opts = {};
     opts.kmsOptions = { region: 'us-east-1' };
     kms =  awsKMSUtils.create(opts);
     done();
   });
 
-  describe('1 list keys tests', function () {
+  describe('1 list CMKs', function () {
 
-    it('1.1 should list keys', function (done) {
+    it('1.1 should list customer master keys', function (done) {
       kms.listKeys(function (err, data) {
         assert(!err, util.format('unexpected error on listKeys:%j', err));
-        assert(data, 'no data passed back');
         console.log(data);
         done();
       });
     }); // it 1.1
   }); // describe 1
 
-  describe('2 generate data key tests', function () {
+  //
+  // Note how have added a well known encryption context to the data key
+  // that records information such as service type and an id.
+  //
+  describe('2 generate a data key using a master key and encryption context that ties key, and then decrypt the data key', function () {
 
     it('2.1 generate a key and decrypt it', function (done) {
-      var genDataKeyOptions = {
+      let genDataKeyOptions = {
         KeyId: 'arn:aws:kms:us-east-1:835222312890:alias/test_out_kms',
         KeySpec: 'AES_256',
-        EncryptionContext: { type: 'servicename:resourcename', id: 'none' }
+        EncryptionContext: {
+          type: 'servicename:resourcename',
+          id: 'none' }
       };
 
       kms.generateDataKey(genDataKeyOptions, function (err, data) {
-        var decryptKeyParams;
         assert(!err, util.format('unexpected error on genDataKey:%j', err));
         assert(data, 'no data passed back');
         assert(data.CiphertextBlob, util.format('No data.CiphertextBlob:%j', data));
         assert(data.Plaintext, util.format('No data.Plaintext:%j', data));
         assert(data.KeyId, util.format('No data.KeyId:%j', data));
+        console.log('*** Encrypted Data Key');
         console.log(data);
 
-        decryptKeyParams = {};
+        let decryptKeyParams = {};
         decryptKeyParams.CiphertextBlob = data.CiphertextBlob;
         decryptKeyParams.EncryptionContext = genDataKeyOptions.EncryptionContext;
         kms.decryptDataKey(decryptKeyParams, function (err, data2) {
@@ -63,6 +71,7 @@ describe('aws KMS utils tests', function () {
           assert(data2, 'no data2 passed back');
           assert((data2.Plaintext.toString('base64') === data.Plaintext.toString('base64')),
               'decrypted key does not match encrypted key');
+          console.log('*** Decrypted Data Key');
           console.log(data2);
           done();
 
